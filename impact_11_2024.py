@@ -585,15 +585,17 @@ if __name__ == '__main__':
 
 # ----------------------------------------------------
 
+# Name must start with a letter, end with a letter or digit and can only contain lowercase letters, digits, and dashes.
+
 # Heroku Setup:
 # heroku login
-# heroku create MC_Impact_11_2024
-# heroku git:remote -a MC_Impact_11_2024
+# heroku create mc-impact-11-2024
+# heroku git:remote -a mc-impact-11-2024
 # git push heroku main
 
 # Clear Heroku Cache:
 # heroku plugins:install heroku-repo
-# heroku repo:purge_cache -a MC_impact_11_2024
+# heroku repo:purge_cache -a mc-impact-11-2024
 
 # Set buildpack for heroku
 # heroku buildpacks:set heroku/python
