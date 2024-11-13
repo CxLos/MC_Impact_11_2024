@@ -23,7 +23,7 @@ from dash.development.base_component import Component
 
 current_dir = os.getcwd()
 script_dir = os.path.dirname(os.path.abspath(__file__))
-data_path1 = 'data/BMHC_Navigation_Outreach.xlsx'
+data_path1 = 'data/BMHC_Navigation_Outreach_Impact_Report.xlsx'
 data_path2 = 'data/BMHC_MarCom_Impact_Report.xlsx'
 file_path1 = os.path.join(script_dir, data_path1)
 file_path2 = os.path.join(script_dir, data_path2)
@@ -34,25 +34,25 @@ marcom = 'MarCom'
 
 # Read data from excel file
 data_r = pd.read_excel(file_path1, sheet_name=responses)
-data_r2 = pd.read_excel(file_path2, sheet_name=responses)
+data_m1 = pd.read_excel(file_path2, sheet_name=responses)
 data_m = pd.read_excel(file_path2, sheet_name=marcom)
 
-df_r = data_r2.copy()
+# df_r = data_r2.copy()
 df_m = data_m.copy()
 
 # Concatenate dataframes
 # df = pd.concat([data1, data2], ignore_index=True)
 
 # Trim leading and trailing whitespaces from column names
-df_r.columns = df_r.columns.str.strip()
+# df_r.columns = df_r.columns.str.strip()
 df_m.columns = df_m.columns.str.strip()
 
 # Define a discrete color sequence
 color_sequence = px.colors.qualitative.Plotly
 
-print(df_m.head())
+# print(df_m.head())
 # print('Total entries: ', len(df))
-# print('Column Names: \n', df.columns)
+print('Column Names: \n', df_m.columns)
 # print('DF Shape:', df.shape)
 # print('Dtypes: \n', df.dtypes)
 # print('Info:', df.info())
@@ -64,7 +64,24 @@ print(df_m.head())
 
 # ================================= Columns ================================= #
 
-
+# Column Names: 
+#  Index([
+#        'MarCom \nReporting Month',
+#        'BMHC Organizational \nCommunications/Marketing Activities',
+#        'BMHC Organizational\nPublic Information',
+#        'BMHC Organizational \nProducts', 'BMHC Organizational\nEvent-Oriented',
+#        'Care Network Enhancement\nCommunications/Marketing',
+#        'Care Network Enhancement\nPublic Information',
+#        'Care Network Enhancement\nProducts',
+#        'Care Network Enhancement\nEvent-Oriented',
+#        'Know Your Numbers\nCommunications/Marketing',
+#        'Know Your Numbers\nPublic Information', 'Know Your Numbers\nProducts',
+#        'Know Your Numbers\nEvent Oriented',
+#        'Health Awareness & ED\nCommunications/Marketing',
+#        'Health Awareness & ED\nPublic Information',
+#        'Health Awareness & ED\nProducts',
+#        'Health Awareness & ED\nEvent-Oriented'],
+#       dtype='object')
 
 # ------------------------------- Missing Values ----------------------------------- #
 
@@ -153,12 +170,68 @@ df_m.to_sql("bmhc_responses_q4_2024", con, if_exists='replace', index=False, met
 
 con.close()
 
+# ========================= Filtered DataFrames ========================== #
+
+# Organizational Events
+organizational_columns = [
+    'BMHC Organizational \nCommunications/Marketing Activities',
+    'BMHC Organizational\nPublic Information',
+    'BMHC Organizational \nProducts',
+    'BMHC Organizational\nEvent-Oriented'
+]
+
+# Create a new DataFrame with only the specified columns
+df_org = df_m[organizational_columns]
+
+# Print the filtered DataFrame to verify the results
+print(df_org)
+
+# Network Enhancement
+network_columns = [
+    'Care Network Enhancement\nCommunications/Marketing',
+    'Care Network Enhancement\nPublic Information',
+    'Care Network Enhancement\nProducts',
+    'Care Network Enhancement\nEvent-Oriented'
+]
+
+# Create a new DataFrame with only the specified columns
+df_network = df_m[network_columns]
+
+# Print the filtered DataFrame to verify the results
+print(df_network)
+
+# Know Your Numbers
+numbers_columns = [
+    'Know Your Numbers\nCommunications/Marketing',
+    'Know Your Numbers\nPublic Information',
+    'Know Your Numbers\nProducts',
+    'Know Your Numbers\nEvent Oriented'
+]
+
+# Create a new DataFrame with only the specified columns
+df_numbers = df_m[numbers_columns]
+
+# Print the filtered DataFrame to verify the results
+print(df_numbers)
+
+# Health Awareness & ED
+health_columns = [
+    'Health Awareness & ED\nCommunications/Marketing',
+    'Health Awareness & ED\nPublic Information',
+    'Health Awareness & ED\nProducts',
+    'Health Awareness & ED\nEvent-Oriented'
+]
+
+# Create a new DataFrame with only the specified columns
+df_health = df_m[health_columns]
+
 # ========================== DataFrame Table ========================== #
 
-df_table = go.Figure(data=[go.Table(
+# Organizational Events Table
+org_table = go.Figure(data=[go.Table(
     # columnwidth=[50, 50, 50],  # Adjust the width of the columns
     header=dict(
-        values=list(df_m.columns),
+        values=list(df_org.columns),
         fill_color='paleturquoise',
         align='left',
         height=30,  # Adjust the height of the header cells
@@ -166,7 +239,7 @@ df_table = go.Figure(data=[go.Table(
         font=dict(size=12)  # Adjust font size
     ),
     cells=dict(
-        values=[df_m[col] for col in df_m.columns],
+        values=[df_org[col] for col in df_org.columns],
         fill_color='lavender',
         align='left',
         height=25,  # Adjust the height of the cells
@@ -175,7 +248,7 @@ df_table = go.Figure(data=[go.Table(
     )
 )])
 
-df_table.update_layout(
+df_org.update_layout(
     margin=dict(l=50, r=50, t=30, b=40),  # Remove margins
     height=400,
     # width=1500,  # Set a smaller width to make columns thinner
@@ -183,7 +256,92 @@ df_table.update_layout(
     plot_bgcolor='rgba(0,0,0,0)'  # Transparent plot area
 )
 
-# print(df.head())
+# Network Enhancement Table
+network_table = go.Figure(data=[go.Table(
+    # columnwidth=[50, 50, 50],  # Adjust the width of the columns
+    header=dict(
+        values=list(df_network.columns),
+        fill_color='paleturquoise',
+        align='left',
+        height=30,  # Adjust the height of the header cells
+        # line=dict(color='black', width=1),  # Add border to header cells
+        font=dict(size=12)  # Adjust font size
+    ),
+    cells=dict(
+        values=[df_network[col] for col in df_network.columns],
+        fill_color='lavender',
+        align='left',
+        height=25,  # Adjust the height of the cells
+        # line=dict(color='black', width=1),  # Add border to cells
+        font=dict(size=12)  # Adjust font size
+    )
+)])
+
+df_network.update_layout(
+    margin=dict(l=50, r=50, t=30, b=40),  # Remove margins
+    height=400,
+    # width=1500,  # Set a smaller width to make columns thinner
+    paper_bgcolor='rgba(0,0,0,0)',  # Transparent background
+    plot_bgcolor='rgba(0,0,0,0)'  # Transparent plot area
+)
+
+# Know Your Numbers Table
+numbers_table = go.Figure(data=[go.Table(
+    # columnwidth=[50, 50, 50],  # Adjust the width of the columns
+    header=dict(
+        values=list(df_numbers.columns),
+        fill_color='paleturquoise',
+        align='left',
+        height=30,  # Adjust the height of the header cells
+        # line=dict(color='black', width=1),  # Add border to header cells
+        font=dict(size=12)  # Adjust font size
+    ),
+    cells=dict(
+        values=[df_numbers[col] for col in df_numbers.columns],
+        fill_color='lavender',
+        align='left',
+        height=25,  # Adjust the height of the cells
+        # line=dict(color='black', width=1),  # Add border to cells
+        font=dict(size=12)  # Adjust font size
+    )
+)])
+
+df_numbers.update_layout(
+    margin=dict(l=50, r=50, t=30, b=40),  # Remove margins
+    height=400,
+    # width=1500,  # Set a smaller width to make columns thinner
+    paper_bgcolor='rgba(0,0,0,0)',  # Transparent background
+    plot_bgcolor='rgba(0,0,0,0)'  # Transparent plot area
+)
+
+# Health Awareness & ED Table
+health_table = go.Figure(data=[go.Table(
+    # columnwidth=[50, 50, 50],  # Adjust the width of the columns
+    header=dict(
+        values=list(df_health.columns),
+        fill_color='paleturquoise',
+        align='left',
+        height=30,  # Adjust the height of the header cells
+        # line=dict(color='black', width=1),  # Add border to header cells
+        font=dict(size=12)  # Adjust font size
+    ),
+    cells=dict(
+        values=[df_health[col] for col in df_health.columns],
+        fill_color='lavender',
+        align='left',
+        height=25,  # Adjust the height of the cells
+        # line=dict(color='black', width=1),  # Add border to cells
+        font=dict(size=12)  # Adjust font size
+    )
+)])
+
+df_health.update_layout(
+    margin=dict(l=50, r=50, t=30, b=40),  # Remove margins
+    height=400,
+    # width=1500,  # Set a smaller width to make columns thinner
+    paper_bgcolor='rgba(0,0,0,0)',  # Transparent background
+    plot_bgcolor='rgba(0,0,0,0)'  # Transparent plot area
+)
 
 # ----------------------------------- DASHBOARD -----------------------------------
 
@@ -203,7 +361,7 @@ app.layout = html.Div(children=[
         className='btn')
     ]),    
 
-# Data Table
+# Data Table Organizational
 html.Div(
     className='row0',
     children=[
@@ -212,7 +370,7 @@ html.Div(
             children=[
                 html.H1(
                     className='table-title',
-                    children='Data Table'
+                    children='Organizational Events'
                 )
             ]
         ),
@@ -221,7 +379,82 @@ html.Div(
             children=[
                 dcc.Graph(
                     className='data',
-                    figure=df_table
+                    figure=org_table
+                )
+            ]
+        )
+    ]
+),
+
+# Data Table Network Enhancement
+html.Div(
+    className='row0',
+    children=[
+        html.Div(
+            className='table',
+            children=[
+                html.H1(
+                    className='table-title',
+                    children='Care Network Enhancement'
+                )
+            ]
+        ),
+        html.Div(
+            className='table2', 
+            children=[
+                dcc.Graph(
+                    className='data',
+                    figure=network_table
+                )
+            ]
+        )
+    ]
+),
+
+# Data Table Know Your Numbers
+html.Div(
+    className='row0',
+    children=[
+        html.Div(
+            className='table',
+            children=[
+                html.H1(
+                    className='table-title',
+                    children='Know Your Numbers'
+                )
+            ]
+        ),
+        html.Div(
+            className='table2', 
+            children=[
+                dcc.Graph(
+                    className='data',
+                    figure=numbers_table
+                )
+            ]
+        )
+    ]
+),
+
+# Data Table Health Awareness & ED
+html.Div(
+    className='row0',
+    children=[
+        html.Div(
+            className='table',
+            children=[
+                html.H1(
+                    className='table-title',
+                    children='Health Awareness & ED'
+                )
+            ]
+        ),
+        html.Div(
+            className='table2', 
+            children=[
+                dcc.Graph(
+                    className='data',
+                    figure=health_table
                 )
             ]
         )
