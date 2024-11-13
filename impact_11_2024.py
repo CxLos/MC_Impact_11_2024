@@ -52,7 +52,7 @@ color_sequence = px.colors.qualitative.Plotly
 
 # print(df_m.head())
 # print('Total entries: ', len(df))
-print('Column Names: \n', df_m.columns)
+# print('Column Names: \n', df_m.columns)
 # print('DF Shape:', df.shape)
 # print('Dtypes: \n', df.dtypes)
 # print('Info:', df.info())
@@ -65,22 +65,23 @@ print('Column Names: \n', df_m.columns)
 # ================================= Columns ================================= #
 
 # Column Names: 
-#  Index([
-#        'MarCom \nReporting Month',
-#        'BMHC Organizational \nCommunications/Marketing Activities',
-#        'BMHC Organizational\nPublic Information',
-#        'BMHC Organizational \nProducts', 'BMHC Organizational\nEvent-Oriented',
-#        'Care Network Enhancement\nCommunications/Marketing',
-#        'Care Network Enhancement\nPublic Information',
-#        'Care Network Enhancement\nProducts',
-#        'Care Network Enhancement\nEvent-Oriented',
-#        'Know Your Numbers\nCommunications/Marketing',
-#        'Know Your Numbers\nPublic Information', 'Know Your Numbers\nProducts',
-#        'Know Your Numbers\nEvent Oriented',
-#        'Health Awareness & ED\nCommunications/Marketing',
-#        'Health Awareness & ED\nPublic Information',
-#        'Health Awareness & ED\nProducts',
-#        'Health Awareness & ED\nEvent-Oriented'],
+#  Index(['MarCom Reporting Month',
+#        'BMHC Organizational Communications/Marketing Activities',
+#        'BMHC Organizational Public Information',
+#        'BMHC Organizational Products', 
+#        'BMHC Organizational Event-Oriented',
+#        'Care Network Enhancement Communications/Marketing',
+#        'Care Network Enhancement Public Information',
+#        'Care Network Enhancement Products',
+#        'Care Network Enhancement Event-Oriented',
+#        'Know Your Numbers Communications/Marketing',
+#        'Know Your Numbers Public Information', 
+#        'Know Your Numbers Products',
+#        'Know Your Numbers Event Oriented',
+#        'Health Awareness & ED Communications/Marketing',
+#        'Health Awareness & ED Public Information',
+#        'Health Awareness & ED Products',
+#        'Health Awareness & ED Event-Oriented'],
 #       dtype='object')
 
 # ------------------------------- Missing Values ----------------------------------- #
@@ -174,58 +175,61 @@ con.close()
 
 # Organizational Events
 organizational_columns = [
-    'BMHC Organizational \nCommunications/Marketing Activities',
-    'BMHC Organizational\nPublic Information',
-    'BMHC Organizational \nProducts',
-    'BMHC Organizational\nEvent-Oriented'
+    'BMHC Organizational Communications/Marketing Activities',
+    'BMHC Organizational Public Information',
+    'BMHC Organizational Products',
+    'BMHC Organizational Event-Oriented'
 ]
 
 # Create a new DataFrame with only the specified columns
 df_org = df_m[organizational_columns]
 
 # Print the filtered DataFrame to verify the results
-print(df_org)
+# print(df_org)
 
 # Network Enhancement
 network_columns = [
-    'Care Network Enhancement\nCommunications/Marketing',
-    'Care Network Enhancement\nPublic Information',
-    'Care Network Enhancement\nProducts',
-    'Care Network Enhancement\nEvent-Oriented'
+    'Care Network Enhancement Communications/Marketing',
+    'Care Network Enhancement Public Information',
+    'Care Network Enhancement Products',
+    'Care Network Enhancement Event-Oriented'
 ]
 
 # Create a new DataFrame with only the specified columns
 df_network = df_m[network_columns]
 
 # Print the filtered DataFrame to verify the results
-print(df_network)
+# print(df_network)
 
 # Know Your Numbers
 numbers_columns = [
-    'Know Your Numbers\nCommunications/Marketing',
-    'Know Your Numbers\nPublic Information',
-    'Know Your Numbers\nProducts',
-    'Know Your Numbers\nEvent Oriented'
+    'Know Your Numbers Communications/Marketing',
+    'Know Your Numbers Public Information',
+    'Know Your Numbers Products',
+    'Know Your Numbers Event Oriented'
 ]
 
 # Create a new DataFrame with only the specified columns
 df_numbers = df_m[numbers_columns]
 
 # Print the filtered DataFrame to verify the results
-print(df_numbers)
+# print(df_numbers)
 
 # Health Awareness & ED
 health_columns = [
-    'Health Awareness & ED\nCommunications/Marketing',
-    'Health Awareness & ED\nPublic Information',
-    'Health Awareness & ED\nProducts',
-    'Health Awareness & ED\nEvent-Oriented'
+    'Health Awareness & ED Communications/Marketing',
+    'Health Awareness & ED Public Information',
+    'Health Awareness & ED Products',
+    'Health Awareness & ED Event-Oriented'
 ]
 
 # Create a new DataFrame with only the specified columns
 df_health = df_m[health_columns]
 
-# ========================== DataFrame Table ========================== #
+# Print the filtered DataFrame to verify the results
+# print(df_health)
+
+# # ========================== DataFrame Table ========================== #
 
 # Organizational Events Table
 org_table = go.Figure(data=[go.Table(
@@ -233,7 +237,7 @@ org_table = go.Figure(data=[go.Table(
     header=dict(
         values=list(df_org.columns),
         fill_color='paleturquoise',
-        align='left',
+        align='center',
         height=30,  # Adjust the height of the header cells
         # line=dict(color='black', width=1),  # Add border to header cells
         font=dict(size=12)  # Adjust font size
@@ -248,7 +252,7 @@ org_table = go.Figure(data=[go.Table(
     )
 )])
 
-df_org.update_layout(
+org_table.update_layout(
     margin=dict(l=50, r=50, t=30, b=40),  # Remove margins
     height=400,
     # width=1500,  # Set a smaller width to make columns thinner
@@ -262,7 +266,7 @@ network_table = go.Figure(data=[go.Table(
     header=dict(
         values=list(df_network.columns),
         fill_color='paleturquoise',
-        align='left',
+        align='center',
         height=30,  # Adjust the height of the header cells
         # line=dict(color='black', width=1),  # Add border to header cells
         font=dict(size=12)  # Adjust font size
@@ -277,7 +281,7 @@ network_table = go.Figure(data=[go.Table(
     )
 )])
 
-df_network.update_layout(
+network_table.update_layout(
     margin=dict(l=50, r=50, t=30, b=40),  # Remove margins
     height=400,
     # width=1500,  # Set a smaller width to make columns thinner
@@ -291,7 +295,7 @@ numbers_table = go.Figure(data=[go.Table(
     header=dict(
         values=list(df_numbers.columns),
         fill_color='paleturquoise',
-        align='left',
+        align='center',
         height=30,  # Adjust the height of the header cells
         # line=dict(color='black', width=1),  # Add border to header cells
         font=dict(size=12)  # Adjust font size
@@ -306,7 +310,7 @@ numbers_table = go.Figure(data=[go.Table(
     )
 )])
 
-df_numbers.update_layout(
+numbers_table.update_layout(
     margin=dict(l=50, r=50, t=30, b=40),  # Remove margins
     height=400,
     # width=1500,  # Set a smaller width to make columns thinner
@@ -320,7 +324,7 @@ health_table = go.Figure(data=[go.Table(
     header=dict(
         values=list(df_health.columns),
         fill_color='paleturquoise',
-        align='left',
+        align='center',
         height=30,  # Adjust the height of the header cells
         # line=dict(color='black', width=1),  # Add border to header cells
         font=dict(size=12)  # Adjust font size
@@ -335,7 +339,7 @@ health_table = go.Figure(data=[go.Table(
     )
 )])
 
-df_health.update_layout(
+health_table.update_layout(
     margin=dict(l=50, r=50, t=30, b=40),  # Remove margins
     height=400,
     # width=1500,  # Set a smaller width to make columns thinner
@@ -343,7 +347,7 @@ df_health.update_layout(
     plot_bgcolor='rgba(0,0,0,0)'  # Transparent plot area
 )
 
-# ----------------------------------- DASHBOARD -----------------------------------
+# ============================== Dash Application ========================== #
 
 app = dash.Dash(__name__)
 server= app.server
@@ -583,13 +587,13 @@ if __name__ == '__main__':
 
 # Heroku Setup:
 # heroku login
-# heroku create impact_11_2024
-# heroku git:remote -a impact_11_2024
+# heroku create MC_Impact_11_2024
+# heroku git:remote -a MC_Impact_11_2024
 # git push heroku main
 
 # Clear Heroku Cache:
 # heroku plugins:install heroku-repo
-# heroku repo:purge_cache -a impact_11_2024
+# heroku repo:purge_cache -a MC_impact_11_2024
 
 # Set buildpack for heroku
 # heroku buildpacks:set heroku/python
