@@ -194,12 +194,12 @@ app.layout = html.Div(children=[
 
     html.Div(className='divv', children=[ 
         
-        html.H1('BMHC Quarter 4 2024 Report', 
+        html.H1('BMHC MarCom November 2024 Report', 
         className='title'),
 
         html.A(
         'Repo',
-        href='https://github.com/CxLos/BMHC_Responses_Q4_2024',
+        href='https://github.com/CxLos/MC_Impact_11_2024',
         className='btn')
     ]),    
 
