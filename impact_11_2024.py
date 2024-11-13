@@ -373,7 +373,7 @@ html.Div(
             className='table',
             children=[
                 html.H1(
-                    className='table-title',
+                    className='table-title1',
                     children='Organizational Events'
                 )
             ]
@@ -442,7 +442,7 @@ html.Div(
 
 # Data Table Health Awareness & ED
 html.Div(
-    className='row0',
+    className='row00',
     children=[
         html.Div(
             className='table',
@@ -464,68 +464,6 @@ html.Div(
         )
     ]
 ),
-
-# ROW 1
-# html.Div(
-#     className='row1',
-#     children=[
-#         html.Div(
-#             className='graph1',
-#             children=[
-#                 dcc.Graph(
-#                     id='new-patient-bar-chart',
-#                     figure=go.Figure(
-#                         data=[
-#                             go.Bar(
-#                                 x=['Q3', 'Q4'],  # X-axis labels for Q3 and Q4
-#                                 y=[new_patients_count_q3, new_patients_count_q4],  # Y-axis values for each quarter
-#                                 marker=dict(color=['orange', 'blue'])  # Color for each bar
-#                             )
-#                         ]
-#                     ).update_layout(
-#                         title="New Patients Over Each Quarter",
-#                         xaxis_title="Quarter",
-#                         yaxis_title="Number of New Patients",
-#                         title_x=0.5,
-#                         font=dict(
-#                             family='Calibri',
-#                             size=17,
-#                             color='black'
-#                         )
-#                     )
-#                 )
-#             ]
-#         ),
-#         html.Div(
-#             className='graph2',
-#             children=[
-#                 dcc.Graph(
-#                     id='service-graph',
-#                     figure=px.bar(
-#                         df_status,
-#                         x='Status',
-#                         y='Count',
-#                         color='Status'
-#                     ).update_layout(
-#                         title='Eligibility Status',
-#                         xaxis_title='Service',
-#                         yaxis_title='Count',
-#                         title_x=0.5,
-#                         font=dict(
-#                             family='Calibri',
-#                             size=17,
-#                             color='black'
-#                         )
-#                     ).update_traces(
-#                         hovertemplate='<b>Service</b>: %{x}<br><b>Count</b>: %{y}<extra></extra>'
-#                     )
-#                 )
-#             ]
-#         )
-#     ]
-# ),
-
-
 ])
 
 # Callback function
